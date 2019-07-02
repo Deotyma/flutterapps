@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
                 ),
                 ),
               Text(
-                  'FLUTTER DEVELOPPER',
+                  'FLUTTER DEVELOPPEUR',
                 style: TextStyle(
                   fontFamily: 'SourceSansPro',
                   color: Colors.lightBlue.shade100,
