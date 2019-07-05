@@ -1,66 +1,30 @@
-library human_anatomy;
+// Flutter code sample for material.Scaffold.1
 
-import 'package:flutter/cupertino.dart';
+// This example shows a [Scaffold] with an [AppBar], a [BottomAppBar] and a
+// [FloatingActionButton]. The [body] is a [Text] placed in a [Center] in order
+// to center the text within the [Scaffold] and the [FloatingActionButton] is
+// centered and docked within the [BottomAppBar] using
+// [FloatingActionButtonLocation.centerDocked]. The [FloatingActionButton] is
+// connected to a callback that increments a counter.
+
 import 'package:flutter/material.dart';
-import 'package:human_anatomy/utils.dart';
+import 'package:human_anatomy/full_page_human_anatomy.dart';
 
-import 'human_anatomy.dart';
+void main() => runApp(
+  MaterialApp(
+    home:FullPageHumanBody(),
+  ),
+);
 
-class FullPageHumanAnatomy extends StatelessWidget {
-  var _finalBodyPartList = [];
+class FullPageHumanBody extends StatelessWidget {
   final Map mapData;
-  final Widget container;
-  final String title;
-  final String route;
-
-  FullPageHumanAnatomy(
-      {Key key, this.mapData, this.container, this.title, this.route})
-      : super(key: key);
-
+  const FullPageHumanBody({Key key, this.mapData}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print(mapData);
-    return Scaffold(
-      body: Container(
-        child: Stack(
-          children: <Widget>[
-            container != null ? container : Container(),
-            TopTitle(
-              topMargin: 80.0,
-              leftMargin: 50.0,
-              title: title,
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(top: 50.0),
-              child: HumanAnatomy(
-                onChanged: bodyPartList,
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              alignment: Alignment.bottomRight,
-              child: FloatingActionButton(
-                backgroundColor: Colors.black87,
-                child: Icon(Icons.arrow_forward),
-                onPressed: () {
-                  mapData['bodyPart'] = _finalBodyPartList.toString();
-
-                  _finalBodyPartList.length == 0
-                      ? Utils().showMyDialog(
-                      context, "Please Select Affected Body Part")
-                      : Navigator.pushNamed(context, route, arguments: mapData);
-                },
-              ),
-            ),
-            MyBackButton(),
-          ],
-        ),
-      ),
+    return FullPageHumanAnatomy(
+      mapData: mapData,
+      title: "J'ai mal ici",
+      route: "/fifth",
     );
-  }
-
-  void bodyPartList(List value) {
-    _finalBodyPartList = value;
   }
 }
