@@ -215,11 +215,20 @@ class priere extends StatelessWidget {
           children: <Widget>[
             Text ("Prière pour la beatification du père Wenanty Katarzyniec écrite par saint Maximilien Maria Kolbe",
         style: TextStyle(
-          fontSize: 25.0,
+          fontSize: 30.0,
           color: Colors.brown.shade900,
           fontFamily: 'Couragette',
         ),
             ),
+            SizedBox(
+              height: 30.0,
+              width: 150.0,
+            ),
+            Text('Dieu troi fois saint soir glorifié pour toues tes actions que tu a avvompli dans la vie de ton serviteur Wenanty. En gardant tes conseilles évangeliques et à travers son ministère sacerotal à l\'Eglise il est devenu l\'example our tes fidèles. Nous Te demandons avec ferveur la beatification dt ton serviteur Wenanty afin qu\'il intercede pour nous. Donne moi ma grâce... pour laquel je Te prie humblement par son intercetion. Par Jésus Christ, Notre Segnieur et notre Dieu qui regne avec Toi et le Saint Esprit pour les siècles de siècles. Amen',
+            style: TextStyle(
+              fontSize: 20.0,
+              color: Colors.brown.shade900,
+            ),),
             SizedBox(
               height: 30.0,
               width: 150.0,
@@ -350,39 +359,48 @@ class neuvenne extends StatelessWidget {
   Widget _buildInnerBottomWidget(int index) {
     return Builder(builder: (context) {
       return Container(
-        color: Color(0xFFecf2f9),
+        color: Colors.brown.shade100,
         alignment: Alignment.bottomCenter,
-        child: Container(
-          width: 250.0,
-          height: 60.0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              stops: [0.1, 0.9],
-              colors: [
-                Colors.brown.shade300,
-                Colors.brown.shade700,
-              ],
-            ),
-          ),
+        child: Column(
+          children: <Widget>[
+            Text ('Notre Père...,      Je vous salue Marie, Gloire au Père...',
+            style: TextStyle(
+              fontSize: 30.0,
+              color: Colors.brown.shade900,
+            ),),
+            Container(
+              width: 250.0,
+              height: 60.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.0),
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  stops: [0.1, 0.9],
+                  colors: [
+                    Colors.brown.shade300,
+                    Colors.brown.shade700,
+                  ],
+                ),
+              ),
 
-          child: FlatButton(
-            onPressed: () {
-              SimpleFoldingCellState foldingCellState = context
-                  .ancestorStateOfType(TypeMatcher<SimpleFoldingCellState>());
-              foldingCellState?.toggleFold();
-            },
-            child: Text(
-              "Close",
-              style: TextStyle(
-                fontSize: 30.0,
+              child: FlatButton(
+                onPressed: () {
+                  SimpleFoldingCellState foldingCellState = context
+                      .ancestorStateOfType(TypeMatcher<SimpleFoldingCellState>());
+                  foldingCellState?.toggleFold();
+                },
+                child: Text(
+                  "Close",
+                  style: TextStyle(
+                    fontSize: 30.0,
+                  ),
+                ),
+                textColor: Colors.brown.shade50,
+                splashColor: Colors.white.withOpacity(0.5),
               ),
             ),
-            textColor: Colors.brown.shade50,
-            splashColor: Colors.white.withOpacity(0.5),
-          ),
+          ],
         ),
       );
     });
