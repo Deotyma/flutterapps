@@ -187,7 +187,7 @@ class biographie extends StatelessWidget {
     onPressed: () {
     Navigator.pop(context);
     },
-    child: Text('Retourn',
+    child: Text('Retour',
     style: TextStyle(
     fontSize: 30.0,
     color: Colors.brown.shade50,
@@ -253,7 +253,7 @@ class priere extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Retourn',
+                child: Text('Retour',
                   style: TextStyle(
                     fontSize: 30.0,
                     color: Colors.brown.shade50,
@@ -334,7 +334,7 @@ class neuvenne extends StatelessWidget {
                       foldingCellState?.toggleFold();
                     },
                     child: Text(
-                      "Open",
+                      "Ouvrir",
                       style: TextStyle(
                         fontSize: 30.0,
                       ),
@@ -391,7 +391,7 @@ class neuvenne extends StatelessWidget {
                   foldingCellState?.toggleFold();
                 },
                 child: Text(
-                  "Close",
+                  "Fermer",
                   style: TextStyle(
                     fontSize: 30.0,
                   ),
