@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:folding_cell/folding_cell.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -22,7 +23,7 @@ class Home_page extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
           CircleAvatar(
-          radius: 70.0,
+          radius: 90.0,
           backgroundImage: AssetImage('assets/wenanty.jpg'),
         ),
         Text('Wenanty Katarzyniec',
@@ -210,11 +211,48 @@ class priere extends StatelessWidget {
         title: Text('Prière'),
       ),
       body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
+        child: Column(
+          children: <Widget>[
+            Text ("Prière pour la beatification du père Wenanty Katarzyniec écrite par saint Maximilien Maria Kolbe",
+        style: TextStyle(
+          fontSize: 25.0,
+          color: Colors.brown.shade900,
+          fontFamily: 'Couragette',
+        ),
+            ),
+            SizedBox(
+              height: 30.0,
+              width: 150.0,
+            ),
+            Container(
+              width: 250.0,
+              height: 60.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.0),
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  stops: [0.1, 0.9],
+                  colors: [
+                    Colors.brown.shade300,
+                    Colors.brown.shade700,
+                  ],
+                ),
+              ),
+
+              child: FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Retourn',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    color: Colors.brown.shade50,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -222,20 +260,120 @@ class priere extends StatelessWidget {
 }
 
 class neuvenne extends StatelessWidget {
+  final _foldingCellKey = GlobalKey<SimpleFoldingCellState>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.brown.shade50,
-      appBar: AppBar(
-        backgroundColor: Colors.brown,
-        title: Text("Route"),
+    return SafeArea(
+      child: Container(
+        color: Colors.brown.shade50,
+        alignment: Alignment.topCenter,
+        child: SimpleFoldingCell(
+            key: _foldingCellKey,
+            frontWidget: _buildFrontWidget(),
+            innerTopWidget: _buildInnerTopWidget(),
+            innerBottomWidget: _buildInnerBottomWidget(),
+            cellSize: Size(MediaQuery.of(context).size.width, 175),
+            padding: EdgeInsets.all(15),
+            animationDuration: Duration(milliseconds: 300),
+            borderRadius: 50.0,
+            onOpen: () => print('cell opened'),
+            onClose: () => print('cell closed')),
       ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
+    );
+  }
+  Widget _buildFrontWidget() {
+    return Container(
+        color: Colors.brown.shade900,
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text("Jour 1",
+                style: TextStyle(
+                    color: Colors.brown.shade50,
+                    fontFamily: 'Couragette',
+                    fontSize: 30.0,
+                    ),
+            ),
+            SizedBox(
+              height: 30.0,
+              width: 150.0,
+            ),
+            Container(
+              width: 250.0,
+              height: 60.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.0),
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  stops: [0.1, 0.9],
+                  colors: [
+                    Colors.brown.shade300,
+                    Colors.brown.shade700,
+                  ],
+                ),
+              ),
+              child: FlatButton(
+                onPressed: () => _foldingCellKey?.currentState?.toggleFold(),
+                child: Text(
+                  "Ouvrir",
+                ),
+                textColor: Colors.brown.shade50,
+              ),
+            )
+          ],
+        ));
+  }
+
+  Widget _buildInnerTopWidget() {
+    return Container(
+        color: Colors.brown,
+        alignment: Alignment.center,
+        child: Column(
+          children: <Widget>[
+            Text('Jour 1',
+                style: TextStyle(
+                    color: Colors.brown.shade50,
+                    fontFamily: 'Couragette',
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w800)),
+            Text('Prière'
+            )
+          ],
+        ));
+  }
+
+  Widget _buildInnerBottomWidget() {
+    return Container(
+      color: Colors.brown,
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        width: 250.0,
+        height: 60.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30.0),
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [0.1, 0.9],
+            colors: [
+              Colors.brown.shade300,
+              Colors.brown.shade700,
+            ],
+          ),
+        ),
+        child: FlatButton(
+          onPressed: () => _foldingCellKey?.currentState?.toggleFold(),
+          child: Text(
+            "Fermer",
+            style: TextStyle(
+              fontSize: 20.0,
+            ),
+          ),
+          textColor: Colors.brown.shade50,
+          splashColor: Colors.white.withOpacity(0.5),
         ),
       ),
     );
