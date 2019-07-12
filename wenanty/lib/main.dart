@@ -260,122 +260,131 @@ class priere extends StatelessWidget {
 }
 
 class neuvenne extends StatelessWidget {
-  final _foldingCellKey = GlobalKey<SimpleFoldingCellState>();
-
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        color: Colors.brown.shade50,
-        alignment: Alignment.topCenter,
-        child: SimpleFoldingCell(
-            key: _foldingCellKey,
-            frontWidget: _buildFrontWidget(),
-            innerTopWidget: _buildInnerTopWidget(),
-            innerBottomWidget: _buildInnerBottomWidget(),
-            cellSize: Size(MediaQuery.of(context).size.width, 175),
-            padding: EdgeInsets.all(15),
-            animationDuration: Duration(milliseconds: 300),
-            borderRadius: 50.0,
-            onOpen: () => print('cell opened'),
-            onClose: () => print('cell closed')),
-      ),
+    return Container(
+      color: Colors.brown.shade50,
+      child: ListView.builder(
+          itemCount: 9,
+          itemBuilder: (context, index) {
+            return SimpleFoldingCell(
+                frontWidget: _buildFrontWidget(index +1 ),
+                innerTopWidget: _buildInnerTopWidget(index),
+                innerBottomWidget: _buildInnerBottomWidget(index),
+                cellSize: Size(MediaQuery.of(context).size.width, 175),
+                padding: EdgeInsets.all(15),
+                animationDuration: Duration(milliseconds: 300),
+                borderRadius: 30,
+                onOpen: () => print('$index cell opened'),
+                onClose: () => print('$index cell closed'));
+          }),
     );
   }
-  Widget _buildFrontWidget() {
-    return Container(
-        color: Colors.brown.shade900,
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text("Jour 1",
-                style: TextStyle(
-                    color: Colors.brown.shade50,
-                    fontFamily: 'Couragette',
-                    fontSize: 30.0,
+
+
+
+  Widget _buildFrontWidget(int index) {
+    return Builder(
+      builder: (BuildContext context) {
+        return Container(
+            color: Colors.brown.shade900,
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("Jour $index",
+                    style: TextStyle(
+                        color: Colors.brown.shade50,
+                        fontFamily: 'Courgette',
+                        fontSize: 30.0,
+                        ),),
+                SizedBox(
+                  height: 30.0,
+                  width: 150.0,
+                ),
+                Container(
+                  width: 250.0,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.0),
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      stops: [0.1, 0.9],
+                      colors: [
+                        Colors.brown.shade300,
+                        Colors.brown.shade700,
+                      ],
                     ),
-            ),
-            SizedBox(
-              height: 30.0,
-              width: 150.0,
-            ),
-            Container(
-              width: 250.0,
-              height: 60.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0),
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  stops: [0.1, 0.9],
-                  colors: [
-                    Colors.brown.shade300,
-                    Colors.brown.shade700,
-                  ],
-                ),
-              ),
-              child: FlatButton(
-                onPressed: () => _foldingCellKey?.currentState?.toggleFold(),
-                child: Text(
-                  "Ouvrir",
-                ),
-                textColor: Colors.brown.shade50,
-              ),
-            )
-          ],
-        ));
+                  ),
+                  child: FlatButton(
+                    onPressed: () {
+                      SimpleFoldingCellState foldingCellState =
+                      context.ancestorStateOfType(
+                          TypeMatcher<SimpleFoldingCellState>());
+                      foldingCellState?.toggleFold();
+                    },
+                    child: Text(
+                      "Open",
+                      style: TextStyle(
+                        fontSize: 30.0,
+                      ),
+                    ),
+                    textColor: Colors.brown.shade50,
+                  ),
+                )
+              ],
+            ));
+      },
+    );
   }
 
-  Widget _buildInnerTopWidget() {
+  Widget _buildInnerTopWidget(int index) {
     return Container(
         color: Colors.brown,
         alignment: Alignment.center,
-        child: Column(
-          children: <Widget>[
-            Text('Jour 1',
-                style: TextStyle(
-                    color: Colors.brown.shade50,
-                    fontFamily: 'Couragette',
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.w800)),
-            Text('Prière'
-            )
-          ],
-        ));
+      child: Image.asset('assets/image$index.jpg'),
+        );
   }
 
-  Widget _buildInnerBottomWidget() {
-    return Container(
-      color: Colors.brown,
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        width: 250.0,
-        height: 60.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30.0),
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            stops: [0.1, 0.9],
-            colors: [
-              Colors.brown.shade300,
-              Colors.brown.shade700,
-            ],
-          ),
-        ),
-        child: FlatButton(
-          onPressed: () => _foldingCellKey?.currentState?.toggleFold(),
-          child: Text(
-            "Fermer",
-            style: TextStyle(
-              fontSize: 20.0,
+  Widget _buildInnerBottomWidget(int index) {
+    return Builder(builder: (context) {
+      return Container(
+        color: Color(0xFFecf2f9),
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          width: 250.0,
+          height: 60.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30.0),
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              stops: [0.1, 0.9],
+              colors: [
+                Colors.brown.shade300,
+                Colors.brown.shade700,
+              ],
             ),
           ),
-          textColor: Colors.brown.shade50,
-          splashColor: Colors.white.withOpacity(0.5),
+
+          child: FlatButton(
+            onPressed: () {
+              SimpleFoldingCellState foldingCellState = context
+                  .ancestorStateOfType(TypeMatcher<SimpleFoldingCellState>());
+              foldingCellState?.toggleFold();
+            },
+            child: Text(
+              "Close",
+              style: TextStyle(
+                fontSize: 30.0,
+              ),
+            ),
+            textColor: Colors.brown.shade50,
+            splashColor: Colors.white.withOpacity(0.5),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
